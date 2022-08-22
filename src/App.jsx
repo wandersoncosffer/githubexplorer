@@ -1,3 +1,6 @@
+import { RepositoryList } from './components/ReposioryList';
+import './styles/global.scss'
+
 export function App(){
-  return <h1>Hello Github explorer</h1>
+  return <RepositoryList/>
 }
