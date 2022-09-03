@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react';
 import { RepositoryItem } from './RepositoryItem';
 
-export function RepositoryList(){
-  const [repositories, setRepositories] = useState([]);
+interface Repository{
+  name: string;
+  description: string;
+  html_url: string;
+}
 
+export function RepositoryList(){
+
+  const [repositories, setRepositories] = useState<Repository[]>([]);
+  
   useEffect(()=>{
     fetch('https://api.github.com/users/wandersoncosffer/repos')
     .then(res => res.json())
-    .then(data => {
-      setRepositories(data);
-    },[]);
-  });
+    .then(data => setRepositories(data));
+  },[]);
 
   return(
     <section className="repository-list">   
@@ -20,7 +25,7 @@ export function RepositoryList(){
         <ul>  
           { 
             repositories.slice(0, 5).map((repository) => {
-              return <RepositoryItem key={repository.id} repository={repository} />
+              return <RepositoryItem key={repository.name} repository={repository} />
             })
           }
         </ul>
